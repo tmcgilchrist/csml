@@ -289,7 +289,7 @@ let printf_k fmt_s (acc : (unit, t) CamlinternalFormat.acc) =
 
 let printf (CamlinternalFormatBasics.Format (fmt, fmt_s) : ('a, unit, t, f) format4) : 'a =
   let open CamlinternalFormat in
-  make_printf (fun () acc -> printf_k fmt_s acc) () End_of_acc fmt
+  make_printf (fun acc -> printf_k fmt_s acc) () End_of_acc fmt
 
 module Operators =
 struct

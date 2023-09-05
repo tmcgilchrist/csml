@@ -39,14 +39,14 @@ all:
 # Compile the OCaml runtime support
 	$(OCAMLC) -c csml_iface.mli
 	$(OCAMLC) -c csml_init.mli
-	$(OCAMLC) -a -o csml_standalone.cma csml_iface.ml
-	$(OCAMLC) -a -o csml_init.cma -cclib "$(CCLIB)" csml_init.ml csml_std.ml
-	$(OCAMLOPT) -a -o csml_standalone.cmxa csml_iface.ml
-	$(OCAMLOPT) -a -o csml_init.cmxa -cclib "$(CCLIB)" csml_init.ml csml_std.ml
+	$(OCAMLC) -a -o csml_standalone.cma csml_iface.ml -I +dynlink -I +unix
+	$(OCAMLC) -a -o csml_init.cma -cclib "$(CCLIB)" -I +dynlink -I +unix csml_init.ml csml_std.ml
+	$(OCAMLOPT) -a -o csml_standalone.cmxa csml_iface.ml -I +dynlink -I +unix
+	$(OCAMLOPT) -a -o csml_init.cmxa -cclib "$(CCLIB)" csml_init.ml csml_std.ml -I +dynlink -I +unix
 
 # Build native DLLs (OCaml runtime + basic libraries + csml C/OCaml runtime support)
-	$(OCAMLC) -output-obj -o libcsml_ml_byt$(EXT_DLL) -linkall $(CSMLMLLIBS)
-	$(OCAMLOPT) -output-obj -o libcsml_ml_opt$(EXT_DLL) -linkall $(CSMLMLLIBS:.cma=.cmxa)
+	$(OCAMLC) -output-obj -o libcsml_ml_byt$(EXT_DLL) -linkall $(CSMLMLLIBS) -I +dynlink -I +unix
+	$(OCAMLOPT) -output-obj -o libcsml_ml_opt$(EXT_DLL) -linkall $(CSMLMLLIBS:.cma=.cmxa) -I +dynlink -I +unix
 
 # Build C# code to link to these DLLs
 	./csml -dllbind libcsml_ml_byt > csml_ml_byt.cs

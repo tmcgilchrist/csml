@@ -8,7 +8,7 @@ include $(shell $(OCAMLC) -where)/Makefile.config
 CSMLDIR = $(ROOT)/src
 CSML = $(CSMLDIR)/csml$(EXE)
 
-CSMLMLLIBS = dynlink.cma bigarray.cma unix.cma csml_standalone.cma csml_init.cma
+CSMLMLLIBS = dynlink.cma unix.cma csml_standalone.cma csml_init.cma
 
 ifeq ($(SYSTEM), win32)
   CSC=csc /nologo

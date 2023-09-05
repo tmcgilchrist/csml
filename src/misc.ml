@@ -38,13 +38,13 @@ type 'a physical_ref =
 
 let physical_ref x =
   let r = { contents = x; uid = Oo.id (object end) } in
-  Obj.set_tag (Obj.repr r) Obj.object_tag;
+  let _obj = Obj.with_tag Obj.object_tag (Obj.repr r) in
   r
 
 
 let only_annot x =
   let r = { contents = x; uid = 0 } in
-  Obj.set_tag (Obj.repr r) Obj.object_tag;
+  let _obj = Obj.with_tag Obj.object_tag (Obj.repr r) in
   r
 
 let list_to_string sep f l = String.concat sep (List.map f l)

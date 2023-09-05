@@ -31,7 +31,6 @@ let find_cs2ml_callback arity s name =
   fun x -> Obj.magic (Lazy.force slot) x
 
 let () =
-  Dynlink.init ();
   Dynlink.allow_unsafe_modules true
 
 let ml2cs_tbl = Hashtbl.create 16
